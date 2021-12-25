@@ -2,21 +2,50 @@ import styles from "../styles/Components.module.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import {
   changeEmailText,
   changePasswordText,
   loginState,
 } from "../redux/slices/loginSlice";
+import { setToken, tokenState } from "../redux/slices/tokenSlice";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   const { email } = useSelector(loginState);
   const { password } = useSelector(loginState);
+  const { token } = useSelector(tokenState);
   const dispatch = useDispatch();
 
-  const handleLogin = (e) => {
+  const loginUser = async (email, password) => {
+    try {
+      const res = await axios.post("http://localhost:5000/api/user/login", {
+        email: email,
+        password: password,
+      });
+      return res;
+    } catch (error) {
+      return error.response;
+    }
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("values: ", email, password);
+
+    const result = await loginUser(email, password);
+    console.log(result);
+
+    if (result.status == 200) {
+      dispatch(setToken(result.data.body.token));
+      dispatch(changeEmailText(""));
+      dispatch(changePasswordText(""));
+      router.push("/");
+    } else {
+      alert("Something went wrong");
+      return;
+    }
   };
 
   return (

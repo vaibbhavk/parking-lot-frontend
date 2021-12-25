@@ -3,12 +3,16 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Button from "@mui/material/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { setToken, tokenState } from "../../redux/slices/tokenSlice";
 
 const Navbar = () => {
   const router = useRouter();
+  const { token } = useSelector(tokenState);
+  const dispatch = useDispatch();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -23,9 +27,12 @@ const Navbar = () => {
             src="https://firebasestorage.googleapis.com/v0/b/fir-9-a4513.appspot.com/o/logo.png?alt=media&token=d860311e-bd40-4409-844d-53f060e74c16"
           />
           <Typography component="div" sx={{ flexGrow: 1 }}></Typography>
-
-          <Link href="/login">Login</Link>
-          <Link href="/signup">Signup</Link>
+          {!token && <Link href="/login">Login</Link>}
+          &nbsp;
+          {!token && <Link href="/signup">Signup</Link>}
+          {token && (
+            <Button onClick={() => dispatch(setToken(""))}>Logout</Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
