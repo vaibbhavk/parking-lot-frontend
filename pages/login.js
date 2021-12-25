@@ -1,14 +1,14 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Hero from "../components/Hero";
+import Login from "../components/Login";
 
-export default function home_page() {
+export default function login_page() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Home</title>
+        <title>Login</title>
       </Head>
-      <Hero />
+      <Login />
     </div>
   );
 }

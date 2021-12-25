@@ -1,14 +1,14 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Hero from "../components/Hero";
+import Signup from "../components/Signup";
 
-export default function home_page() {
+export default function signup_page() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Home</title>
+        <title>Signup</title>
       </Head>
-      <Hero />
+      <Signup />
     </div>
   );
 }
