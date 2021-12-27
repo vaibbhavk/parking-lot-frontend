@@ -29,6 +29,14 @@ export const slice = createSlice({
     changeTypeText: (state, action) => {
       state.type = action.payload;
     },
+    resetSignupState: (state, action) => {
+      state.email = action.payload;
+      state.password = action.payload;
+      state.name = action.payload;
+      state.phone = action.payload;
+      state.address = action.payload;
+      state.type = action.payload;
+    },
   },
 });
 
@@ -39,6 +47,7 @@ export const {
   changePhoneText,
   changeAddressText,
   changeTypeText,
+  resetSignupState,
 } = slice.actions;
 
 export const signupState = (state) => ({

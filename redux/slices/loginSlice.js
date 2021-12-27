@@ -13,10 +13,15 @@ export const slice = createSlice({
     changePasswordText: (state, action) => {
       state.password = action.payload;
     },
+    resetLoginState: (state, action) => {
+      state.email = action.payload;
+      state.password = action.payload;
+    },
   },
 });
 
-export const { changeEmailText, changePasswordText } = slice.actions;
+export const { changeEmailText, changePasswordText, resetLoginState } =
+  slice.actions;
 
 export const loginState = (state) => ({
   email: state.login.email,

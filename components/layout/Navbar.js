@@ -7,11 +7,16 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { setToken, tokenState } from "../../redux/slices/tokenSlice";
+import {
+  setToken,
+  setId,
+  setType,
+  loginDetailState,
+} from "../../redux/slices/loginDetailSlice";
 
 const Navbar = () => {
   const router = useRouter();
-  const { token } = useSelector(tokenState);
+  const { token } = useSelector(loginDetailState);
   const dispatch = useDispatch();
 
   return (
@@ -31,7 +36,16 @@ const Navbar = () => {
           &nbsp;
           {!token && <Link href="/signup">Signup</Link>}
           {token && (
-            <Button onClick={() => dispatch(setToken(""))}>Logout</Button>
+            <Button
+              onClick={() => {
+                dispatch(setToken("")),
+                  dispatch(setId("")),
+                  dispatch(setType(""));
+                router.push("/");
+              }}
+            >
+              Logout
+            </Button>
           )}
         </Toolbar>
       </AppBar>
